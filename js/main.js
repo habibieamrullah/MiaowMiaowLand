@@ -216,6 +216,44 @@ ZKGame.Main = {
 		this.player.body.collideWorldBounds = true;
 		this.player.body.setSize(25, 32, 12, 0);
 		this.player.animations.add("move", [1, 2, 3], 10, true);
+ 	
+        // Keyboard input handlers
+game.input.keyboard.addKeyCapture([Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.UP]);
+
+this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+this.upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+
+this.leftKey.onDown.add(function(){
+    movingLeft = true;
+    movingRight = false;
+    this.arrowleft.frame = 1;
+}, this);
+
+this.leftKey.onUp.add(function(){
+    movingLeft = false;
+    this.arrowleft.frame = 0;
+}, this);
+
+this.rightKey.onDown.add(function(){
+    movingRight = true;
+    movingLeft = false;
+    this.arrowright.frame = 1;
+}, this);
+
+this.rightKey.onUp.add(function(){
+    movingRight = false;
+    this.arrowright.frame = 0;
+}, this);
+
+this.upKey.onDown.add(function(){
+    if(this.player.body.touching.down || this.player.body.y > game.height-20) {
+        pussJump(this);
+    }
+}, this);
+
+
+
 		
 		this.arrowleft = game.add.sprite(100, game.height - 100, "arrow");
 		this.arrowleft.anchor.setTo(.5);
